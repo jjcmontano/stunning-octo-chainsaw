@@ -1,4 +1,5 @@
-﻿using Robots.Services.Helpers;
+﻿using Microsoft.Extensions.Hosting;
+using Robots.Services.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace Robots.Services
     /// </summary>
     public class CommandService : ICommandService
     {
-        private readonly TableTopService _tableTopService;
+        private readonly ITableTopService _tableTopService;
 
-        public CommandService(TableTopService tableTopService)
+        public CommandService(ITableTopService tableTopService)
         {
             this._tableTopService = tableTopService;
         }
@@ -24,6 +25,7 @@ namespace Robots.Services
             Command command;
             do
             {
+                Console.Write("Enter command:");
                 var inputText = Console.ReadLine() ?? string.Empty;
 
                 command = ProcessCommand(inputText);
@@ -67,6 +69,8 @@ namespace Robots.Services
             }
             else
             {
+                Console.WriteLine($"{inputText}: Unrecognised command");
+                PrintHelp();
                 return Command.NONE;
             }
 
@@ -76,12 +80,12 @@ namespace Robots.Services
         private void PrintHelp()
         {
             Console.WriteLine("Command help:");
-            Console.WriteLine("place <x coordinate> <y coordinate> <direction: n/s/e/w>: Place robot at (x, y) facing direction n/s/e/w");
-            Console.WriteLine("move: Move robot 1 position in the direction it is facing");
-            Console.WriteLine("left: Rotate robot 90° counterclockwise");
-            Console.WriteLine("right: Rotate robot 90° clockwise");
-            Console.WriteLine("report: Print current robot position and direction it is facing");
-            Console.WriteLine("exit: End program");
+            Console.WriteLine("\tplace <x coordinate> <y coordinate> <direction: n/s/e/w>: Place robot at (x, y) facing direction n/s/e/w");
+            Console.WriteLine("\tmove: Move robot 1 position in the direction it is facing");
+            Console.WriteLine("\tleft: Rotate robot 90° counterclockwise");
+            Console.WriteLine("\tright: Rotate robot 90° clockwise");
+            Console.WriteLine("\treport: Print current robot position and direction it is facing");
+            Console.WriteLine("\texit: End program");
         }
 
         private void Place(List<string> parameters)
