@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
+using Robots.Model;
 using Robots.Services.Helpers;
 using System;
 using System.Collections.Generic;
@@ -80,7 +81,7 @@ namespace Robots.Services
         private void PrintHelp()
         {
             Console.WriteLine("Command help:");
-            Console.WriteLine("\tplace <x coordinate> <y coordinate> <direction: n/s/e/w>: Place robot at (x, y) facing direction n/s/e/w");
+            Console.WriteLine("\tplace <x coordinate> <y coordinate> <direction: north/south/east/west>: Place robot at (x, y) facing direction n/s/e/w");
             Console.WriteLine("\tmove: Move robot 1 position in the direction it is facing");
             Console.WriteLine("\tleft: Rotate robot 90° counterclockwise");
             Console.WriteLine("\tright: Rotate robot 90° clockwise");
@@ -90,22 +91,32 @@ namespace Robots.Services
 
         private void Place(List<string> parameters)
         {
-            throw new NotImplementedException();
+            if (parameters.Count == 3 &&
+                int.TryParse(parameters[0], out var x) &&
+                int.TryParse(parameters[1], out var y) &&
+                Enum.TryParse<Direction>(parameters[2], ignoreCase: true, out var direction))
+            {
+                Console.WriteLine(_tableTopService.Place(x, y, direction) ? "Success" : "Failed");
+            }
+            else
+            {
+                Console.WriteLine("Failed");
+            }
         }
 
         private void Move()
         {
-            throw new NotImplementedException();
+            Console.WriteLine(_tableTopService.Move() ? "Success" : "Failed");
         }
 
         private void Left()
         {
-            throw new NotImplementedException();
+            Console.WriteLine(_tableTopService.Left() ? "Success" : "Failed");
         }
 
         private void Right()
         {
-            throw new NotImplementedException();
+            Console.WriteLine(_tableTopService.Right() ? "Success" : "Failed");
         }
 
         private void Report()

@@ -22,24 +22,76 @@ namespace Robots.Services
             this._gridOptions = gridOptions.Value;
         }
 
-        public void Place(int x, int y, Direction direction)
+        private bool ValidatePosition(int x, int y) =>
+            x >= 0 &&
+            y >= 0 &&
+            x < _gridOptions.Width &&
+            y < _gridOptions.Height;
+
+        public bool Place(int x, int y, Direction direction)
         {
-            throw new NotImplementedException();
+            if (ValidatePosition(x, y))
+            {
+                _robot.X = x;
+                _robot.Y = y;
+                _robot.Direction = direction;
+                return true;
+            }
+
+            return false;
         }
 
-        public void Move()
+        public bool Move()
         {
-            throw new NotImplementedException();
+            var newX = _robot.Direction switch
+            {
+                Direction.EAST => _robot.X + 1,
+                Direction.WEST => _robot.X - 1,
+                _ => _robot.X
+            };
+            var newY = _robot.Direction switch
+            {
+                Direction.NORTH => _robot.Y + 1,
+                Direction.SOUTH => _robot.Y - 1,
+                _ => _robot.Y
+            };
+
+            if (ValidatePosition(newX, newY))
+            {
+                _robot.X = newX;
+                _robot.Y = newY;
+                return true;
+            }
+
+            return false;
         }
 
-        public void Left()
+        public bool Left()
         {
-            throw new NotImplementedException();
+            _robot.Direction = _robot.Direction switch
+            {
+                Direction.NORTH => Direction.WEST,
+                Direction.WEST => Direction.SOUTH,
+                Direction.SOUTH => Direction.EAST,
+                Direction.EAST => Direction.NORTH,
+                _ => Direction.NORTH,
+            };
+
+            return true;
         }
 
-        public void Right()
+        public bool Right()
         {
-            throw new NotImplementedException();
+            _robot.Direction = _robot.Direction switch
+            {
+                Direction.NORTH => Direction.EAST,
+                Direction.EAST => Direction.SOUTH,
+                Direction.SOUTH => Direction.WEST,
+                Direction.WEST => Direction.NORTH,
+                _ => Direction.NORTH,
+            };
+
+            return true;
         }
 
         public string Report() => $"{_robot.X}, {_robot.Y}, {_robot.Direction}";

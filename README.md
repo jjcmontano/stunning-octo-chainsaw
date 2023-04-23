@@ -13,7 +13,7 @@
 * On Windows, execute `.\RobotsConsole.ps1`
 
 ## Command help
-* `place <x coordinate> <y coordinate> <direction: n/s/e/w>`: Place robot at (x, y) facing direction north/south/east/west
+* `place <x coordinate> <y coordinate> <direction: north/south/east/west>`: Place robot at (x, y) facing direction north/south/east/west
 * `move`: Move robot 1 position forward, in the direction it is currently facing
 * `left`: Rotate robot 90° counterclockwise
 * `right`: Rotate robot 90° clockwise

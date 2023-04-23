@@ -61,10 +61,11 @@ namespace Robots.ServicesTests
             var service = this.CreateService();
 
             // Act
-            service.Place(3, 2, Direction.EAST);
+            var result = service.Place(3, 2, Direction.EAST);
 
             // Assert
             var robot = service.GetRobot();
+            Assert.That(result, Is.True);
             Assert.That(robot.X, Is.EqualTo(3));
             Assert.That(robot.Y, Is.EqualTo(2));
             Assert.That(robot.Direction, Is.EqualTo(Direction.EAST));
@@ -78,10 +79,11 @@ namespace Robots.ServicesTests
             var service = this.CreateService();
 
             // Act
-            service.Place(-1, 2, Direction.EAST);
+            var result = service.Place(-1, 2, Direction.EAST);
 
             // Assert
             var robot = service.GetRobot();
+            Assert.That(result, Is.False);
             Assert.That(robot.X, Is.EqualTo(0));
             Assert.That(robot.Y, Is.EqualTo(0));
             Assert.That(robot.Direction, Is.EqualTo(Direction.NORTH));
@@ -95,10 +97,11 @@ namespace Robots.ServicesTests
             var service = this.CreateService();
 
             // Act
-            service.Place(-1, -2, Direction.EAST);
+            var result = service.Place(-1, -2, Direction.EAST);
 
             // Assert
             var robot = service.GetRobot();
+            Assert.That(result, Is.False);
             Assert.That(robot.X, Is.EqualTo(0));
             Assert.That(robot.Y, Is.EqualTo(0));
             Assert.That(robot.Direction, Is.EqualTo(Direction.NORTH));
@@ -112,10 +115,11 @@ namespace Robots.ServicesTests
             var service = this.CreateService();
 
             // Act
-            service.Place(3, 5, Direction.EAST);
+            var result = service.Place(3, 5, Direction.EAST);
 
             // Assert
             var robot = service.GetRobot();
+            Assert.That(result, Is.False);
             Assert.That(robot.X, Is.EqualTo(0));
             Assert.That(robot.Y, Is.EqualTo(0));
             Assert.That(robot.Direction, Is.EqualTo(Direction.NORTH));
@@ -129,10 +133,11 @@ namespace Robots.ServicesTests
             var service = this.CreateService();
 
             // Act
-            service.Place(5, 5, Direction.EAST);
+            var result = service.Place(5, 5, Direction.EAST);
 
             // Assert
             var robot = service.GetRobot();
+            Assert.That(result, Is.False);
             Assert.That(robot.X, Is.EqualTo(0));
             Assert.That(robot.Y, Is.EqualTo(0));
             Assert.That(robot.Direction, Is.EqualTo(Direction.NORTH));
@@ -171,10 +176,11 @@ namespace Robots.ServicesTests
 
             // Act
             service.Place(startingX, startingY, startingDirection);
-            service.Move();
+            var result = service.Move();
 
             // Assert
             var robot = service.GetRobot();
+            Assert.That(result, Is.True);
             Assert.That(robot.X, Is.EqualTo(expectedX));
             Assert.That(robot.Y, Is.EqualTo(expectedY));
             Assert.That(robot.Direction, Is.EqualTo(startingDirection));
@@ -208,10 +214,11 @@ namespace Robots.ServicesTests
 
             // Act
             service.Place(startingX, startingY, startingDirection);
-            service.Move();
+            var result = service.Move();
 
             // Assert
             var robot = service.GetRobot();
+            Assert.That(result, Is.False);
             Assert.That(robot.X, Is.EqualTo(startingX));
             Assert.That(robot.Y, Is.EqualTo(startingY));
             Assert.That(robot.Direction, Is.EqualTo(startingDirection));
@@ -231,10 +238,11 @@ namespace Robots.ServicesTests
 
             // Act
             service.Place(0, 0, startingDirection);
-            service.Left();
+            var result = service.Left();
 
             // Assert
             var robot = service.GetRobot();
+            Assert.That(result, Is.True);
             Assert.That(robot.Direction, Is.EqualTo(endingDirection));
             this.mockRepository.VerifyAll();
         }
@@ -252,10 +260,11 @@ namespace Robots.ServicesTests
 
             // Act
             service.Place(0, 0, startingDirection);
-            service.Right();
+            var result = service.Right();
 
             // Assert
             var robot = service.GetRobot();
+            Assert.That(result, Is.True);
             Assert.That(robot.Direction, Is.EqualTo(endingDirection));
             this.mockRepository.VerifyAll();
         }
