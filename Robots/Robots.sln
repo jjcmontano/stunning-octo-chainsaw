@@ -3,11 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RobotsConsole", "RobotsConsole\RobotsConsole.csproj", "{3E3637BC-68D1-4E90-B96A-2852D015C7A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RobotsConsole", "RobotsConsole\RobotsConsole.csproj", "{3E3637BC-68D1-4E90-B96A-2852D015C7A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Robots.Model", "Robots.Model\Robots.Model.csproj", "{E723528B-8DBB-4902-8E35-13579344B347}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Robots.Model", "Robots.Model\Robots.Model.csproj", "{E723528B-8DBB-4902-8E35-13579344B347}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Robots.Services", "Robots.Services\Robots.Services.csproj", "{8A4153F6-105D-4A8A-B509-B00AB1A30F86}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Robots.Services", "Robots.Services\Robots.Services.csproj", "{8A4153F6-105D-4A8A-B509-B00AB1A30F86}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Robots.ServicesTests", "Robots.ServicesTests\Robots.ServicesTests.csproj", "{596109FF-0142-43C7-942E-09C789B7CC36}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EED6B5F5-8D31-416F-8E21-C6994A9668F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,10 @@ Global
 		{8A4153F6-105D-4A8A-B509-B00AB1A30F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A4153F6-105D-4A8A-B509-B00AB1A30F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A4153F6-105D-4A8A-B509-B00AB1A30F86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{596109FF-0142-43C7-942E-09C789B7CC36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{596109FF-0142-43C7-942E-09C789B7CC36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{596109FF-0142-43C7-942E-09C789B7CC36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{596109FF-0142-43C7-942E-09C789B7CC36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -46,5 +46,10 @@ namespace Robots.Services
         {
             Console.WriteLine($"{_robot.X}, {_robot.Y}, {_robot.Direction}");
         }
+
+        public Robot GetRobot()
+        {
+            return _robot;
+        }
     }
 }

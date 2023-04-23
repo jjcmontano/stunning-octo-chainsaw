@@ -14,7 +14,7 @@
 
 ## Command help
 * `place <x coordinate> <y coordinate> <direction: n/s/e/w>`: Place robot at (x, y) facing direction north/south/east/west
-* `move`: Move robot 1 position in the direction it is facing
+* `move`: Move robot 1 position forward, in the direction it is currently facing
 * `left`: Rotate robot 90° counterclockwise
 * `right`: Rotate robot 90° clockwise
 * `report`: Print current robot position and direction it is facing
