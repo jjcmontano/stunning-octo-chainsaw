@@ -39,7 +39,7 @@ namespace Robots.ServicesTests
         }
 
         [Test]
-        public void Place_DefaultPosition_RobotPlacedAtDefault()
+        public void Place_UnplacedRobot_RobotIsNull()
         {
             // Arrange
             var service = this.CreateService();
@@ -48,9 +48,7 @@ namespace Robots.ServicesTests
             
             // Assert
             var robot = service.GetRobot();
-            Assert.That(robot.X, Is.EqualTo(0));
-            Assert.That(robot.Y, Is.EqualTo(0));
-            Assert.That(robot.Direction, Is.EqualTo(Direction.NORTH));
+            Assert.That(robot, Is.Null);
             this.mockRepository.VerifyAll();
         }
 
@@ -84,9 +82,7 @@ namespace Robots.ServicesTests
             // Assert
             var robot = service.GetRobot();
             Assert.That(result, Is.False);
-            Assert.That(robot.X, Is.EqualTo(0));
-            Assert.That(robot.Y, Is.EqualTo(0));
-            Assert.That(robot.Direction, Is.EqualTo(Direction.NORTH));
+            Assert.That(robot, Is.Null);
             this.mockRepository.VerifyAll();
         }
 
@@ -102,9 +98,7 @@ namespace Robots.ServicesTests
             // Assert
             var robot = service.GetRobot();
             Assert.That(result, Is.False);
-            Assert.That(robot.X, Is.EqualTo(0));
-            Assert.That(robot.Y, Is.EqualTo(0));
-            Assert.That(robot.Direction, Is.EqualTo(Direction.NORTH));
+            Assert.That(robot, Is.Null);
             this.mockRepository.VerifyAll();
         }
 
@@ -120,9 +114,7 @@ namespace Robots.ServicesTests
             // Assert
             var robot = service.GetRobot();
             Assert.That(result, Is.False);
-            Assert.That(robot.X, Is.EqualTo(0));
-            Assert.That(robot.Y, Is.EqualTo(0));
-            Assert.That(robot.Direction, Is.EqualTo(Direction.NORTH));
+            Assert.That(robot, Is.Null);
             this.mockRepository.VerifyAll();
         }
 
@@ -138,9 +130,63 @@ namespace Robots.ServicesTests
             // Assert
             var robot = service.GetRobot();
             Assert.That(result, Is.False);
-            Assert.That(robot.X, Is.EqualTo(0));
-            Assert.That(robot.Y, Is.EqualTo(0));
-            Assert.That(robot.Direction, Is.EqualTo(Direction.NORTH));
+            Assert.That(robot, Is.Null);
+            this.mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Move_UnplacedRobot_Rejected()
+        {
+            // Arrange
+            var service = this.CreateService();
+
+            // Act
+            var result = service.Move();
+
+            // Assert
+            Assert.That(result, Is.False);
+            this.mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Left_UnplacedRobot_Rejected()
+        {
+            // Arrange
+            var service = this.CreateService();
+
+            // Act
+            var result = service.Left();
+
+            // Assert
+            Assert.That(result, Is.False);
+            this.mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Right_UnplacedRobot_Rejected()
+        {
+            // Arrange
+            var service = this.CreateService();
+
+            // Act
+            var result = service.Right();
+
+            // Assert
+            Assert.That(result, Is.False);
+            this.mockRepository.VerifyAll();
+        }
+
+        [Test]
+        public void Report_UnplacedRobot_Rejected()
+        {
+            // Arrange
+            var service = this.CreateService();
+
+            // Act
+            var result = service.Report();
+
+            // Assert
+            Assert.That(result, Is.EqualTo("Failed"));
             this.mockRepository.VerifyAll();
         }
 

@@ -9,12 +9,7 @@ namespace Robots.Services
     public class TableTopService : ITableTopService
     {
         private readonly GridOptions _gridOptions;
-        private readonly Robot _robot = new Robot
-        {
-            X = 0,
-            Y = 0,
-            Direction = Direction.NORTH,
-        };
+        private Robot? _robot = null;
 
         public TableTopService(
             IOptions<GridOptions> gridOptions)
@@ -32,6 +27,13 @@ namespace Robots.Services
         {
             if (ValidatePosition(x, y))
             {
+                _robot ??= new Robot
+                {
+                    X = 0,
+                    Y = 0,
+                    Direction = Direction.NORTH,
+                };
+
                 _robot.X = x;
                 _robot.Y = y;
                 _robot.Direction = direction;
@@ -43,6 +45,11 @@ namespace Robots.Services
 
         public bool Move()
         {
+            if (_robot == null)
+            {
+                return false;
+            }
+
             var newX = _robot.Direction switch
             {
                 Direction.EAST => _robot.X + 1,
@@ -68,6 +75,11 @@ namespace Robots.Services
 
         public bool Left()
         {
+            if (_robot == null)
+            {
+                return false;
+            }
+
             _robot.Direction = _robot.Direction switch
             {
                 Direction.NORTH => Direction.WEST,
@@ -82,6 +94,12 @@ namespace Robots.Services
 
         public bool Right()
         {
+
+            if (_robot == null)
+            {
+                return false;
+            }
+
             _robot.Direction = _robot.Direction switch
             {
                 Direction.NORTH => Direction.EAST,
@@ -94,7 +112,10 @@ namespace Robots.Services
             return true;
         }
 
-        public string Report() => $"{_robot.X}, {_robot.Y}, {_robot.Direction}";
+        public string Report() => _robot != null ?
+            $"{_robot.X}, {_robot.Y}, {_robot.Direction}"
+            :
+            "Failed";
 
         public Robot GetRobot()
         {
