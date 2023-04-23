@@ -117,7 +117,7 @@ namespace Robots.Services
             :
             "Failed";
 
-        public Robot GetRobot()
+        public Robot? GetRobot()
         {
             return _robot;
         }

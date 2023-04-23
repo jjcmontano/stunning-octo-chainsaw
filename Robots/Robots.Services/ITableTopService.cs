@@ -4,7 +4,7 @@ namespace Robots.Services
 {
     public interface ITableTopService
     {
-        Robot GetRobot();
+        Robot? GetRobot();
         bool Left();
         bool Right();
         bool Move();

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Robots.Services
@@ -14,6 +15,7 @@ namespace Robots.Services
     /// </summary>
     public class CommandService : ICommandService
     {
+        private readonly Regex _commandRegex = new Regex(@"(\w+) *\( *(?:(\d+) *, *(\d+) *, *(\w+))? *\) *", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         private readonly ITableTopService _tableTopService;
 
         public CommandService(ITableTopService tableTopService)
@@ -35,58 +37,62 @@ namespace Robots.Services
 
         public Command ProcessCommand(string inputText)
         {
-            var commandComponents = inputText.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            var commandText = commandComponents.FirstOrDefault();
-            var parameters = commandComponents.Skip(1).ToList();
+            var commandComponents = _commandRegex.Match(inputText);
 
-            if (Enum.TryParse<Command>(commandText, ignoreCase: true, out var command))
+            if (commandComponents.Success && commandComponents.Groups.Count >= 2)
             {
-                switch (command)
+                var commandText = commandComponents.Groups[1].Value;
+                var parameters = commandComponents.Groups.Values.Skip(2).Select(c => c.Value).ToList();
+
+                if (Enum.TryParse<Command>(commandText, ignoreCase: true, out var command))
                 {
-                    case Command.NONE:
-                        PrintHelp();
-                        break;
-                    case Command.PLACE:
-                        Place(parameters);
-                        break;
-                    case Command.MOVE:
-                        Move();
-                        break;
-                    case Command.LEFT:
-                        Left();
-                        break;
-                    case Command.RIGHT:
-                        Right();
-                        break;
-                    case Command.REPORT:
-                        Report();
-                        break;
-                    case Command.EXIT:
-                        Exit();
-                        break;
-                    default:
-                        break;
+                    switch (command)
+                    {
+                        case Command.NONE:
+                            PrintHelp();
+                            break;
+                        case Command.PLACE:
+                            Place(parameters);
+                            break;
+                        case Command.MOVE:
+                            Move();
+                            break;
+                        case Command.LEFT:
+                            Left();
+                            break;
+                        case Command.RIGHT:
+                            Right();
+                            break;
+                        case Command.REPORT:
+                            Report();
+                            break;
+                        case Command.EXIT:
+                            Exit();
+                            break;
+                        default:
+                            break;
+                    }
                 }
+                return command;
             }
             else
             {
-                Console.WriteLine($"{inputText}: Unrecognised command");
+                Console.WriteLine($"{inputText}: Unrecognised command or invalid syntax, e.g. missing parentheses.");
                 PrintHelp();
                 return Command.NONE;
             }
-
-            return command;
         }
 
         private void PrintHelp()
         {
             Console.WriteLine("Command help:");
-            Console.WriteLine("\tplace <x coordinate> <y coordinate> <direction: north/south/east/west>: Place robot at (x, y) facing direction n/s/e/w");
-            Console.WriteLine("\tmove: Move robot 1 position in the direction it is facing");
-            Console.WriteLine("\tleft: Rotate robot 90° counterclockwise");
-            Console.WriteLine("\tright: Rotate robot 90° clockwise");
-            Console.WriteLine("\treport: Print current robot position and direction it is facing");
-            Console.WriteLine("\texit: End program");
+            Console.WriteLine("NOTE: Command validation is case-insensitive and whitespace is ignored, but expects valid parentheses and parameters otherwise.");
+            Console.WriteLine("\tplace(<x coordinate>,<y coordinate>,<direction: north/south/east/west>): Place robot at (x,y) facing direction north/south/east/west");
+            Console.WriteLine("\tmove(): Move robot 1 position in the direction it is facing");
+            Console.WriteLine("\tleft(): Rotate robot 90° counterclockwise");
+            Console.WriteLine("\tright(): Rotate robot 90° clockwise");
+            Console.WriteLine("\treport(): Print current robot position and direction it is facing");
+            Console.WriteLine("\texit(): End program");
         }
 
         private void Place(List<string> parameters)
@@ -100,7 +106,7 @@ namespace Robots.Services
             }
             else
             {
-                Console.WriteLine("Failed");
+                Console.WriteLine("Failed: Place command has invalid parameters");
             }
         }
 
