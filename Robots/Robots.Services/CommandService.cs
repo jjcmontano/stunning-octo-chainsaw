@@ -25,7 +25,7 @@ namespace Robots.Services
             Command command;
             do
             {
-                Console.Write("Enter command:");
+                Console.Write("Enter command: ");
                 var inputText = Console.ReadLine() ?? string.Empty;
 
                 command = ProcessCommand(inputText);
@@ -115,7 +115,6 @@ namespace Robots.Services
 
         private void Exit()
         {
-            throw new NotImplementedException();
         }
     }
 }
