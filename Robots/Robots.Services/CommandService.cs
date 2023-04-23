@@ -110,7 +110,7 @@ namespace Robots.Services
 
         private void Report()
         {
-            _tableTopService.Report();
+            Console.WriteLine(_tableTopService.Report());
         }
 
         private void Exit()

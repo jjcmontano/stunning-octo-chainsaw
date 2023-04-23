@@ -42,10 +42,7 @@ namespace Robots.Services
             throw new NotImplementedException();
         }
 
-        public void Report()
-        {
-            Console.WriteLine($"{_robot.X}, {_robot.Y}, {_robot.Direction}");
-        }
+        public string Report() => $"{_robot.X}, {_robot.Y}, {_robot.Direction}";
 
         public Robot GetRobot()
         {

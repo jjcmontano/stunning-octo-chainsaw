@@ -8,7 +8,7 @@ namespace Robots.Services
         void Left();
         void Move();
         void Place(int x, int y, Direction direction);
-        void Report();
+        string Report();
         void Right();
     }
 }
